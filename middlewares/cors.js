@@ -2,8 +2,8 @@ const cors = (req, res, next) => {
   const allowedCors = [
     'https://praktikum.tk',
     'http://praktikum.tk',
-    'https://mestostepan.nomoredomains.xyz',
-    'http://mestostepan.nomoredomains.xyz',
+    'https://stepanmovies.nomoredomains.xyz',
+    'http://stepanmovies.nomoredomains.xyz',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
   ];

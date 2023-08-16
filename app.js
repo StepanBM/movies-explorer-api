@@ -19,7 +19,7 @@ const { auth } = require('./middlewares/auth');
 
 const { cors } = require('./middlewares/cors');
 
-// const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { validatorLogin, validatorAddUser } = require('./middlewares/validator');
 
@@ -30,7 +30,7 @@ const NotDataError = require('./errors/NotDataError');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-// app.use(requestLogger);
+app.use(requestLogger);
 
 app.use(cors);
 
@@ -51,7 +51,7 @@ app.use('', (req, res, next) => {
   next(new NotDataError('Данного пути не существует'));
 });
 
-// app.use(errorLogger);
+app.use(errorLogger);
 
 app.use(errors());
 

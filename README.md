@@ -2,6 +2,6 @@
 
 ## Ссылки на проект
 
-IP 
+IP 51.250.87.177
 
-Backend 
+Backend https://api.stepanmovies.nomoreparties.co
