@@ -5,7 +5,7 @@ const IncorrectDataError = require('../errors/IncorrectDataError');
 const NotRightsError = require('../errors/NotRightsError');
 
 const getMovies = (req, res, next) => {
-  Movies.find({})
+  Movies.find({ owner: req.user._id })
     .then((movies) => res.status(200).send(movies))
     .catch(next);
 };

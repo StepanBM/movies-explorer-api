@@ -10,24 +10,17 @@ const helmet = require('helmet');
 
 const { errors } = require('celebrate');
 
-const userRoutes = require('./routes/users');
-const moviesRoutes = require('./routes/movie');
-
-const { login, addUser } = require('./controllers/users');
-
-const { auth } = require('./middlewares/auth');
-
 const { cors } = require('./middlewares/cors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { validatorLogin, validatorAddUser } = require('./middlewares/validator');
+const router = require('./routes');
 
 const serverError = require('./errors/ServerError');
 
 const NotDataError = require('./errors/NotDataError');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, ADDRESS = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 const app = express();
 
 app.use(requestLogger);
@@ -39,13 +32,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/signin', validatorLogin, login);
-app.post('/signup', validatorAddUser, addUser);
-
-app.use(auth);
-
-app.use('/users', userRoutes);
-app.use('/movies', moviesRoutes);
+app.use(router);
 
 app.use('', (req, res, next) => {
   next(new NotDataError('Данного пути не существует'));
@@ -57,7 +44,7 @@ app.use(errors());
 
 app.use(serverError);
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+mongoose.connect(ADDRESS);
 
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает
